@@ -74,11 +74,10 @@ void Treap::insertItem(int id, int key) {
     
     } else {
         // starting from root, traverse down the tree to find the correct position to insert the new node
-        Node* new_node = bstInsert(root, id, key, priority);
-           
+        Node* new_node = bstInsert(root, id, key, priority);   
         // fix heap property violation
-        // restore_heap_insert(new_node);
-        
+        restoreHeapInsert(new_node);
+
     }    
     size++;
 }
@@ -98,6 +97,103 @@ Node* Treap::searchItem(int key_sch) const {
     }
     return nullptr;
 }
+
+
+// restores heap property violations after an insert
+void Treap::restoreHeapInsert(Node* node) {
+    // check for heap property violation
+    while ((node != root) and (node->priority < node->parent->priority)) {
+        if (node == node->parent->left) {
+            // perform right rotation if node is a left child
+            rightRotation(node); 
+        } else {
+            // perform left rotation if node is a right child
+            leftRotation(node);
+        }
+    }
+
+}
+
+
+void Treap::leftRotation(Node* x) {
+    /*
+        Intially:
+              y
+            /   \
+           A     x
+                / \ 
+               B   C
+
+        After left rotation on node x:       
+              x
+            /  \
+           y    C
+          / \ 
+         A   B
+
+    */
+    Node* y = x->parent;  // parent of x
+    Node* g = y->parent;  // grandparent of x
+    Node* B = x->left;
+    // perform left rotation
+    x->left = y;
+    y->parent = x;
+    y->right = B;
+    if (B != nullptr) {
+        B->parent = y;
+    }
+    x->parent = g;
+    if (g != nullptr) {
+        if (g->left == y) {
+            g->left = x;
+        } else {
+            g->right = x;
+        }
+    } else {
+        root = x;
+    }
+}
+
+
+void Treap::rightRotation(Node* x) {
+    /*
+        Initially:    
+              y
+            /  \
+           x    C
+          / \ 
+         A   B
+
+        After right rotation on node x:
+                x
+              /   \
+             A     y
+                  / \ 
+                 B   C
+        
+    */
+    Node* y = x->parent;  // parent of x
+    Node* g = y->parent;  // grandparent of x
+    Node* B = x->right;
+    // perform right rotation
+    x->right = y;
+    y->parent = x;
+    y->left = B;
+    if (B != nullptr) {
+        B->parent = y;
+    }
+    x->parent = g;
+    if (g != nullptr) {
+        if (g->left == y) {
+            g->left = x;
+        } else {
+            g->right = x;
+        }
+    } else {
+        root = x;
+    }
+}
+
 
 
 int Treap::findTreeHeight() const {

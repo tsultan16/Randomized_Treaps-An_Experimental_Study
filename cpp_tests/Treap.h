@@ -27,6 +27,9 @@ class Treap {
         static int seed;
         float generateRand();
         Node* bstInsert(Node* new_node, int id, int key, float priority);
+        void restoreHeapInsert(Node* node);
+        void leftRotation(Node* node);
+        void rightRotation(Node* node);
         void exportToDot(Node* node, std::ofstream& dotFile);
 
     public:
