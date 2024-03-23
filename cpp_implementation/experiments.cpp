@@ -1,3 +1,21 @@
+/*
+    * COMP90077 - Assignment 1
+    *
+    * experiments.cpp
+    * 
+    * This file contains the driver program for running the experiments for this assignment
+    * The experiments are as follows:
+    * 1. Time vs Number of Insertions
+    * 2. Time vs Deletion Percentage
+    * 3. Time vs Search Percentage
+    * 4. Time vs Length of Mixed Operations Sequence
+    * 
+    * The results of the experiments are saved to text files in the same directory.
+    *
+    * Author: Tanzid Sultan (ID# 1430660)
+*/
+
+
 #include <iostream>
 #include "Treap.h"
 #include "DataGenerator.h"
@@ -6,19 +24,21 @@
 using namespace std;
 
 int main(int argc, char** argv) {
+
+    // get which experiment number to run from command line arguments
     if (argc != 2) {
         cerr << "Experiment option usage: ./experiments <experiment_number>\n";
         return 1;
     }
-
     int experiment = atoi(argv[1]);
-
     if (experiment < 1 || experiment > 4) {
         cerr << "Error: experiment number must be between 1 and 4.\n";
         return 1;
     }
 
+    ////////////////
     // Experiment 1
+    ////////////////
     if (experiment == 1) {
         cout << "\nPerforming experiment 1: Time vs Number of Insertions:" << endl;
         int L_ins[] = {100000, 200000, 500000, 800000, 1000000};
@@ -78,8 +98,10 @@ int main(int argc, char** argv) {
         }
 
     }    
-
+ 
+    ////////////////
     // Experiment 2
+    ////////////////
     if (experiment == 2) {
         cout << "\nPerforming experiment 2: Time vs Deletion Percentage:" << endl;
         int L = 1000000;
@@ -157,7 +179,9 @@ int main(int argc, char** argv) {
 
     }  
 
+    ////////////////
     // Experiment 3
+    ////////////////
     if (experiment == 3) {
         cout << "\nPerforming experiment 3: Time vs Search Percentage:" << endl;
         int L = 1000000;
@@ -234,8 +258,9 @@ int main(int argc, char** argv) {
         }
     }  
 
-
+    ////////////////
     // Experiment 4
+    //////////////// 
     if (experiment == 4) {
         cout << "\nPerforming experiment 4: Time vs Length of Mixed Operations Sequence:" << endl;
         int L_ops[] = {100000, 200000, 500000, 800000, 1000000};
@@ -321,7 +346,5 @@ int main(int argc, char** argv) {
         }
     }  
 
-
-
-
+    return 0; // success!
 }

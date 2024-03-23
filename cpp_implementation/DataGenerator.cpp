@@ -1,3 +1,13 @@
+/*
+    * COMP90077 - Assignment 1
+    *
+    * DataGenerator.cpp
+    *
+    * This file contains the implementation of the DataGenerator class.
+    * 
+    * Author: Tanzid Sultan
+*/
+
 #include "DataGenerator.h"
 #include <stdexcept>
 #include <cassert>
@@ -27,6 +37,7 @@ std::vector<int> DataGenerator::genElement() {
     // sample a uniform random integer key from [0,10^7]
     x[1] = generateRandInt(0, 1e7);
     id_next++;
+    // keep a copy of the generated data (need this for genDeletion operation)
     data.push_back(x);
     return x;
 }
@@ -50,7 +61,7 @@ std::vector<int> DataGenerator::genDeletion() {
     // sample a uniform random integer id from [1,id_next-1]
     int idx = generateRandInt(1, id_next-1);
     //std::cout << "deletion idx = " << idx << std::endl;
-    // get the key associated with this id
+    // get the key associated with the element that had been generated with this id
     int key_del = data[idx-1][1];
     //std::cout << "deleting key = " << key_del << std::endl;
     deletion[1] = key_del; 

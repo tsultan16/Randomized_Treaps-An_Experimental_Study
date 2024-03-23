@@ -1,3 +1,13 @@
+/*
+    * COMP90077 - Assignment 1
+    *
+    * DataGenerator.h
+    *
+    * This header file contains the interface for the DataGenerator class.
+    * 
+    * Author: Tanzid Sultan
+*/
+
 #ifndef DATA_GENERATOR_H
 #define DATA_GENERATOR_H
 

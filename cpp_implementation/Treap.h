@@ -1,3 +1,13 @@
+/*
+    * COMP90077 - Assignment 1
+    *
+    * Treap.h
+    *
+    * This header file contains the interface for the Treap class.
+    * 
+    * Author: Tanzid Sultan
+*/
+
 #ifndef TREAP_H
 #define TREAP_H
 

@@ -1,3 +1,13 @@
+/*
+    * COMP90077 - Assignment 1
+    *
+    * Treap.cpp
+    *
+    * This file contains the implementation of the Treap class.
+    * 
+    * Author: Tanzid Sultan
+*/
+
 #include "Treap.h"
 #include <stdexcept>
 #include <cassert>
@@ -122,7 +132,7 @@ void Treap::deleteItem(int key_del) {
         } else if (key_del > current->key) {
             current = current->right;
         } else {
-            // if key found, perform rotations to move the node to a leaf position
+            // if key is found, perform rotations to move the node to a leaf position
             rotateToLeaf(current);
             // now delete this leaf node from the tree
             if (current->parent != nullptr) {
@@ -134,7 +144,9 @@ void Treap::deleteItem(int key_del) {
             } else {
                 root = nullptr;
             }
+            // deallocate from memory
             delete current;
+            size--;
             return;
         }
     }
@@ -158,8 +170,8 @@ void Treap::maintainHeapPropertyInsert(Node* node) {
 }
 
 
+// performs rotations to bring node down to a leaf position
 void Treap::rotateToLeaf(Node* node) {
-    // perform rotations to bring node down to a leaf position
     while ((node->left != nullptr) and (node->right != nullptr)) {
         if (node->left == nullptr) {
             // perform left rotation on right child if node only has a right child
@@ -179,6 +191,7 @@ void Treap::rotateToLeaf(Node* node) {
 }
 
 
+// left rotation of a node
 void Treap::leftRotation(Node* x) {
     /*
         Intially:
@@ -218,7 +231,7 @@ void Treap::leftRotation(Node* x) {
     }
 }
 
-
+// right rotation of a node
 void Treap::rightRotation(Node* x) {
     /*
         Initially:    
@@ -259,7 +272,7 @@ void Treap::rightRotation(Node* x) {
 }
 
 
-
+// find the height of the treap
 int Treap::findTreeHeight() const {
     // perform level order traversal (i.e. BFS) to find the height of the tree
     int height = 0;
@@ -293,9 +306,9 @@ int Treap::findTreeHeight() const {
 }
 
 
-//////////////////////////
-// for tree visualization
-//////////////////////////
+///////////////////////////////////////////////////////////
+// Tree visualization using GraphViz, useful for debugging
+///////////////////////////////////////////////////////////
 
 void Treap::exportToDot(Node* node, std::ofstream& dotFile) {
     // internal nodes with only one child assigned a null child

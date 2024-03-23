@@ -1,3 +1,13 @@
+/*
+    * COMP90077 - Assignment 1
+    *
+    * DynamicArray.h
+    *
+    * This header file contains the interface for the DynamicArray class.
+    * 
+    * Author: Tanzid Sultan
+*/
+
 #ifndef DYNAMIC_ARRAY_H
 #define DYNAMIC_ARRAY_H
 

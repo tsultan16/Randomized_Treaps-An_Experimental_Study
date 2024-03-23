@@ -1,3 +1,13 @@
+/*
+    * COMP90077 - Assignment 1
+    *
+    * DynamicArray.cpp
+    *
+    * This file contains the implementation of the DynamicArray class.
+    * 
+    * Author: Tanzid Sultan
+*/
+
 #include "DynamicArray.h"
 #include <stdexcept>
 #include <cassert>
