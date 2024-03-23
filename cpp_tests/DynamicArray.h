@@ -19,10 +19,8 @@ class DynamicArray {
         int getCapacity() const;
         int* get(int idx) const;
         int* searchItem(int key_sch) const;
-
         void insertItem(int id, int key);
-        void deleteItem(int key_del);
-        //void performOperation(int );
+        void deleteItem(int key_del);       
 
 };
 

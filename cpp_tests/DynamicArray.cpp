@@ -1,8 +1,9 @@
 #include "DynamicArray.h"
 #include <stdexcept>
 #include <cassert>
+#include <iostream>
 
-// constructor definition
+// constructor definition (starting capacity is 2)
 DynamicArray::DynamicArray() : capacity(2), size(0) {
     // create a 2d array of size capacity x 2
     arr = new int*[capacity];
@@ -62,6 +63,10 @@ void DynamicArray::grow() {
 
 // halve the array capacity
 void DynamicArray::shrink() {
+    if (capacity == 2) {
+        // do not shrink below capacity of 2
+        return;
+    }
     assert(size<capacity/4);
     // create new array of half the capacity
     capacity /= 2;
@@ -85,12 +90,13 @@ void DynamicArray::shrink() {
 
 // search for an item in the array
 int* DynamicArray:: searchItem(int key_sch) const {
-    // scan the array from beginning to end to find the given key (in case there are multiple keys, return the first one found)
+    // scan the array from beginning to end to find the given key (in case there are multiple items with this key, return the first one found)
     for (int i =0; i < size; i++) {
         if (arr[i][1] == key_sch) {
             return arr[i];
         } 
     }
+    //std::cout << "Key " << key_sch << " not found." << std::endl;
     return nullptr;
 }
 
