@@ -25,6 +25,21 @@ float Treap::generateRand() {
     return distribution(generator);
 }
 
+Node* Treap::searchItem(int key_sch) const {
+    // perform binary search starting from root (in case there are multiple nodes with this key, return the first one found)
+    Node* current = root;
+    while (current != nullptr) {
+        if (key_sch < current->key) {
+            current = current->left;
+        } else if (key_sch > current->key) {
+            current = current->right;
+        } else {
+            return current;
+        }
+    }
+    return nullptr;
+}
+
 // recursive BST insertion
 Node* Treap::bstInsert(Node* node, int id, int key, float priority) {
     if (key < node->key) {
@@ -76,31 +91,44 @@ void Treap::insertItem(int id, int key) {
         // starting from root, traverse down the tree to find the correct position to insert the new node
         Node* new_node = bstInsert(root, id, key, priority);   
         // fix heap property violation
-        restoreHeapInsert(new_node);
+        maintainHeapPropertyInsert(new_node);
 
     }    
     size++;
 }
 
 
-Node* Treap::searchItem(int key_sch) const {
-    // perform binary search starting from root (in case there are multiple nodes with this key, return the first one found)
+void Treap::deleteItem(int key_del) {
+    // use binary search to find the node with given key (in case of multiple nodes with this key, we delete the first one found)
     Node* current = root;
     while (current != nullptr) {
-        if (key_sch < current->key) {
+        if (key_del < current->key) {
             current = current->left;
-        } else if (key_sch > current->key) {
+        } else if (key_del > current->key) {
             current = current->right;
         } else {
-            return current;
+            // if key found, perform rotations to move the node to a leaf position
+            rotateToLeaf(current);
+            // now remove this leaf node from the tree
+            if (current->parent != nullptr) {
+                if (current->parent->left == current) {
+                    current->parent->left = nullptr;
+                } else {
+                    current->parent->right = nullptr;
+                }
+            } else {
+                root = nullptr;
+            }
+            current = nullptr;
+            return;
         }
     }
-    return nullptr;
+    std::cout << "Key " << key_del << " not found." << std::endl;
 }
 
 
 // restores heap property violations after an insert
-void Treap::restoreHeapInsert(Node* node) {
+void Treap::maintainHeapPropertyInsert(Node* node) {
     // check for heap property violation
     while ((node != root) and (node->priority < node->parent->priority)) {
         if (node == node->parent->left) {
@@ -112,6 +140,27 @@ void Treap::restoreHeapInsert(Node* node) {
         }
     }
 
+}
+
+
+void Treap::rotateToLeaf(Node* node) {
+    // perform rotations to bring node down to a leaf position
+    while ((node->left != nullptr) and (node->right != nullptr)) {
+        if (node->left == nullptr) {
+            // perform left rotation on right child if node only has a right child
+            leftRotation(node->right);
+        } else if (node->right == nullptr) {
+            // perform right rotation on left child if node only has a left child
+            rightRotation(node->left);
+        } else {
+            // if node has two children, then perform rotation on the child with the smaller priority
+            if (node->left->priority < node->right->priority) {
+                rightRotation(node->left);
+            } else {
+                leftRotation(node->right);
+            }
+        }
+    }     
 }
 
 

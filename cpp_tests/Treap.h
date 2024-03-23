@@ -27,7 +27,8 @@ class Treap {
         static int seed;
         float generateRand();
         Node* bstInsert(Node* new_node, int id, int key, float priority);
-        void restoreHeapInsert(Node* node);
+        void maintainHeapPropertyInsert(Node* node);
+        void rotateToLeaf(Node* node);
         void leftRotation(Node* node);
         void rightRotation(Node* node);
         void exportToDot(Node* node, std::ofstream& dotFile);
@@ -36,10 +37,9 @@ class Treap {
         Treap(); // constructor
         ~Treap(); // destructor
         Node* getRoot() const;
-
+        Node* searchItem(int key_sch) const;     
         void insertItem(int id, int key);
         void deleteItem(int key_del);
-        Node* searchItem(int key_sch) const;     
         void exportTree(const std::string& filename);
         int findTreeHeight() const;
 

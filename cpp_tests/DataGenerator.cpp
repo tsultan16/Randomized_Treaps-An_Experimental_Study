@@ -1,6 +1,7 @@
 #include "DataGenerator.h"
 #include <stdexcept>
 #include <cassert>
+#include <iostream>
 
 // define rng seed static variable
 int DataGenerator::seed = 1234;  
@@ -48,8 +49,10 @@ std::vector<int> DataGenerator::genDeletion() {
     deletion[0] = 2; // deletion operation
     // sample a uniform random integer id from [1,id_next-1]
     int idx = generateRandInt(1, id_next-1);
+    //std::cout << "deletion idx = " << idx << std::endl;
     // get the key associated with this id
-    int key_del = data[idx][1];
+    int key_del = data[idx-1][1];
+    //std::cout << "deleting key = " << key_del << std::endl;
     deletion[1] = key_del; 
     return deletion;
 }
