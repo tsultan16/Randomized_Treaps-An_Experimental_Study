@@ -31,11 +31,13 @@ class Treap {
         void rotateToLeaf(Node* node);
         void leftRotation(Node* node);
         void rightRotation(Node* node);
+        void destroyTreap(Node* node);
         void exportToDot(Node* node, std::ofstream& dotFile);
 
     public:
         Treap(); // constructor
         ~Treap(); // destructor
+        int getSize() const;
         Node* getRoot() const;
         Node* searchItem(int key_sch) const;     
         void insertItem(int id, int key);

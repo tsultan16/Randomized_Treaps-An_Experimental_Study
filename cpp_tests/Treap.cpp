@@ -14,6 +14,21 @@ Treap::Treap(): size(0), root(nullptr), generator(seed), distribution(0,1) {
 
 // destructor definition
 Treap::~Treap() {
+    destroyTreap(root);
+}
+
+
+// use BFS/postorder traversal to visit all nodes and deallocate the memory
+void Treap::destroyTreap(Node* node) {
+    if (node != nullptr) {
+        destroyTreap(node->left);
+        destroyTreap(node->right);
+        delete node;
+    }
+}
+
+int Treap::getSize() const {
+    return size;
 }
 
 Node* Treap::getRoot() const {
@@ -109,7 +124,7 @@ void Treap::deleteItem(int key_del) {
         } else {
             // if key found, perform rotations to move the node to a leaf position
             rotateToLeaf(current);
-            // now remove this leaf node from the tree
+            // now delete this leaf node from the tree
             if (current->parent != nullptr) {
                 if (current->parent->left == current) {
                     current->parent->left = nullptr;
@@ -119,11 +134,11 @@ void Treap::deleteItem(int key_del) {
             } else {
                 root = nullptr;
             }
-            current = nullptr;
+            delete current;
             return;
         }
     }
-    std::cout << "Key " << key_del << " not found." << std::endl;
+    //std::cout << "Key " << key_del << " not found." << std::endl;
 }
 
 
