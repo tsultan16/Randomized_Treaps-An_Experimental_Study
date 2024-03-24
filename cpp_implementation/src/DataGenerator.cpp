@@ -14,14 +14,21 @@
 #include <iostream>
 
 // define rng seed static variable
-int DataGenerator::seed = 1234;  
+int DataGenerator::SEED = 1234;  
+//define zero static variable
+float DataGenerator::ZERO = 1e-9;
 
 // constructor definition 
-DataGenerator::DataGenerator(): id_next(1), generator(seed) {
+DataGenerator::DataGenerator(): id_next(1), generator(SEED), distribution(0,1) {
 }
 
 // destructor definition
 DataGenerator::~DataGenerator() {
+}
+
+// draw random sample from continuous uniform distribution [0,1) 
+float DataGenerator::generateRand() {
+    return distribution(generator);
 }
 
 // draw random sample from uniform distribution [a,b] 
@@ -78,4 +85,50 @@ std::vector<int> DataGenerator::genSearch() {
     return search;
 }
 
+// generate operation sequence of specified length with specified probabilities for each operation
+std::vector<std::vector<int>> DataGenerator::genOpSequence(int L, float del_percent, float sch_percent) {
+    std::vector<std::vector<int>> sigma;
+    for(int j = 0; j < L; j++) {
+        std::vector<int> op;
+        if ((del_percent <= ZERO) and (sch_percent <= ZERO)) {
+            // with 100% probability generate insertion operation
+            op = genInsertion();
 
+        } else if ((sch_percent <= ZERO) and (del_percent > ZERO)) {
+            float r = generateRand();
+            if (r < del_percent/100.0) {
+                // with del_percent % probability generate deletion operation
+                op = genDeletion();
+            } else {
+                // with 100-del_percent % probability generate insertion operation
+                op = genInsertion();
+            }
+        
+        } else if ((del_percent <= ZERO) and (sch_percent > ZERO)) {
+            float r = generateRand();
+            if (r < sch_percent/100.0) {
+                // with sch_percent % probability generate search operation
+                op = genSearch();
+            } else {
+                // with 100-del_percent % probability generate insertion operation
+                op = genInsertion();
+            }
+        
+        } else {
+            // sample a uniform random priority from [0,1)
+            float r = generateRand();
+            if (r < del_percent/100.0) {
+                // with del_percent % probability generate deletion operation
+                op = genDeletion();
+            } else if (r < (del_percent/100.0 + sch_percent/100.0)) {
+                // with sch_percent % probability generate search operation
+                op = genSearch();
+            } else {
+                // with 100-del_percent-sch_percent % probability generate insertion operation
+                op = genInsertion();
+            }
+        }
+        sigma.push_back(op);
+    }
+    return sigma;
+}

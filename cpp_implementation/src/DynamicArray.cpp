@@ -13,7 +13,7 @@
 #include <cassert>
 #include <iostream>
 
-// constructor definition (starting capacity is 2)
+// constructor definition (intiialize empty array with capacity 2)
 DynamicArray::DynamicArray() : capacity(2), size(0) {
     // create a 2d array of size capacity x 2
     arr = new int*[capacity];

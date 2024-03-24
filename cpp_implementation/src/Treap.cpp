@@ -16,10 +16,10 @@
 #include <iomanip>
 
 // define rng seed static variable
-int Treap::seed = 1234;  
+int Treap::SEED = 1234;  
 
 // constructor definition (initialize size, root, generator, and distribution)
-Treap::Treap(): size(0), root(nullptr), generator(seed), distribution(0,1) {
+Treap::Treap(): root(nullptr), size(0), generator(SEED), distribution(0,1) {
 }
 
 // destructor definition
@@ -45,7 +45,7 @@ Node* Treap::getRoot() const {
     return root;
 }
 
-// draw random sample from continuous uniform distribution [a,b) 
+// draw random sample from continuous uniform distribution [0,1) 
 float Treap::generateRand() {
     return distribution(generator);
 }
