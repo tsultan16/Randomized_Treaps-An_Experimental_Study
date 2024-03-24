@@ -34,7 +34,7 @@ class Treap {
         int size;
         std::mt19937 generator;  // pseudo-rng (Mersenne Twister)
         std::uniform_real_distribution<double> distribution;  // continuous uniform distribution
-        static int seed;
+        static int SEED;
         Node* bstInsert(Node* new_node, int id, int key, float priority);
         void maintainHeapPropertyInsert(Node* node);
         void rotateToLeaf(Node* node);
