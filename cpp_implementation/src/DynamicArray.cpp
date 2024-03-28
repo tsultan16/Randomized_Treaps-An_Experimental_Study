@@ -5,7 +5,7 @@
     *
     * This file contains the implementation of the DynamicArray class.
     * 
-    * Author: Tanzid Sultan
+    * Author: Tanzid Sultan (ID# 1430660)
 */
 
 #include "DynamicArray.h"
@@ -136,3 +136,12 @@ void DynamicArray::deleteItem(int key_del) {
     }
 }
 
+void DynamicArray::performOperation(std::vector<int> op) {
+    if (op[0] == 1) {
+        insertItem(op[1], op[2]);
+    } else if (op[0] == 2) {
+        deleteItem(op[1]);
+    } else {
+        searchItem(op[1]);
+    }
+}

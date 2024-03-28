@@ -5,7 +5,7 @@
     *
     * This file contains the implementation of the Treap class.
     * 
-    * Author: Tanzid Sultan
+    * Author: Tanzid Sultan (ID# 1430660)
 */
 
 #include "Treap.h"
@@ -302,6 +302,17 @@ int Treap::findTreeHeight() const {
             height++;
         }
         return height;
+    }
+}
+
+
+void Treap::performOperation(std::vector<int> op) {
+    if (op[0] == 1) {
+        insertItem(op[1], op[2]);
+    } else if (op[0] == 2) {
+        deleteItem(op[1]);
+    } else {
+        searchItem(op[1]);
     }
 }
 

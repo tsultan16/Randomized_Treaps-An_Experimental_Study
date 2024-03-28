@@ -10,6 +10,7 @@
 
 #ifndef DYNAMIC_ARRAY_H
 #define DYNAMIC_ARRAY_H
+#include <vector>
 
 // Dynamic Array Interface
 class DynamicArray {
@@ -31,6 +32,7 @@ class DynamicArray {
         int* searchItem(int key_sch) const;
         void insertItem(int id, int key);
         void deleteItem(int key_del);       
+        void performOperation(std::vector<int> op);  
 
 };
 

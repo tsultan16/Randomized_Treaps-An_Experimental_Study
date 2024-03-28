@@ -5,7 +5,7 @@
     *
     * This file contains the implementation of the DataGenerator class.
     * 
-    * Author: Tanzid Sultan
+    * Author: Tanzid Sultan (ID# 1430660)
 */
 
 #include "DataGenerator.h"
@@ -87,6 +87,10 @@ std::vector<int> DataGenerator::genSearch() {
 
 // generate operation sequence of specified length with specified probabilities for each operation
 std::vector<std::vector<int>> DataGenerator::genOpSequence(int L, float del_percent, float sch_percent) {
+    assert(L > 0);   
+    assert(del_percent >= 0 and del_percent <= 100);
+    assert(sch_percent >= 0 and sch_percent <= 100);
+
     std::vector<std::vector<int>> sigma;
     for(int j = 0; j < L; j++) {
         std::vector<int> op;

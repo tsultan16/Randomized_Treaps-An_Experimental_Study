@@ -145,13 +145,7 @@ std::vector<double> performOperationSequence(Treap& treap, DynamicArray& competi
     // perform operation sequence on treap and measure execution time
     auto start = std::chrono::high_resolution_clock::now();   
     for (size_t j = 0; j < sigma.size(); j++) {
-        if (sigma[j][0] == 1) {
-            treap.insertItem(sigma[j][1], sigma[j][2]);
-        } else if (sigma[j][0] == 2) {
-            treap.deleteItem(sigma[j][1]);
-        } else {
-            treap.searchItem(sigma[j][1]);
-        }
+        treap.performOperation(sigma[j]);
     }
     auto end = std::chrono::high_resolution_clock::now();
     // get treap execution time in seconds
@@ -162,13 +156,7 @@ std::vector<double> performOperationSequence(Treap& treap, DynamicArray& competi
     // perform operation sequence on competitor and measure execution time
     start = std::chrono::high_resolution_clock::now();
     for (size_t j = 0; j < sigma.size(); j++) {
-        if (sigma[j][0] == 1) {
-            competitor.insertItem(sigma[j][1], sigma[j][2]);
-        } else if (sigma[j][0] == 2) {
-            competitor.deleteItem(sigma[j][1]);
-        } else {
-            competitor.searchItem(sigma[j][1]);
-        }
+        competitor.performOperation(sigma[j]);
     }
     end = std::chrono::high_resolution_clock::now();
     // get competitor execution time in seconds

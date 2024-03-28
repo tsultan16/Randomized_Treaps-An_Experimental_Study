@@ -5,12 +5,11 @@
     *
     * This header file contains the interface for the Treap class.
     * 
-    * Author: Tanzid Sultan
+    * Author: Tanzid Sultan (ID# 1430660)
 */
 
 #ifndef TREAP_H
 #define TREAP_H
-
 #include <vector>
 #include <random>
 #include <fstream>
@@ -54,6 +53,7 @@ class Treap {
         void deleteItem(int key_del);
         void exportTree(const std::string& filename);
         int findTreeHeight() const;
+        void performOperation(std::vector<int> op);  
 
 };
 
