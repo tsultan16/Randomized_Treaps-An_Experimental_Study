@@ -37,17 +37,18 @@ void Treap::destroyTreap(Node* node) {
     }
 }
 
+// draw random sample from continuous uniform distribution [0,1) 
+float Treap::generateRand() {
+    return distribution(generator);
+}
+
+
 int Treap::getSize() const {
     return size;
 }
 
 Node* Treap::getRoot() const {
     return root;
-}
-
-// draw random sample from continuous uniform distribution [0,1) 
-float Treap::generateRand() {
-    return distribution(generator);
 }
 
 Node* Treap::searchItem(int key_sch) const {
@@ -125,30 +126,23 @@ void Treap::insertItem(int id, int key) {
 
 void Treap::deleteItem(int key_del) {
     // use binary search to find the node with given key (in case of multiple nodes with this key, we delete the first one found)
-    Node* current = root;
-    while (current != nullptr) {
-        if (key_del < current->key) {
-            current = current->left;
-        } else if (key_del > current->key) {
-            current = current->right;
-        } else {
-            // if key is found, perform rotations to move the node to a leaf position
-            rotateToLeaf(current);
-            // now delete this leaf node from the tree
-            if (current->parent != nullptr) {
-                if (current->parent->left == current) {
-                    current->parent->left = nullptr;
-                } else {
-                    current->parent->right = nullptr;
-                }
+    Node* current = searchItem(key_del);
+    if (current != nullptr) {
+        // if key is found, perform rotations to move the node to a leaf position
+        rotateToLeaf(current);
+        // now delete this leaf node from the tree
+        if (current->parent != nullptr) {
+            if (current->parent->left == current) {
+                current->parent->left = nullptr;
             } else {
-                root = nullptr;
+                current->parent->right = nullptr;
             }
-            // deallocate from memory
-            delete current;
-            size--;
-            return;
+        } else {
+            root = nullptr;
         }
+        // deallocate from memory
+        delete current;
+        size--;
     }
     //std::cout << "Key " << key_del << " not found." << std::endl;
 }
