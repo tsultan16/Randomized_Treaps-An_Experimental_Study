@@ -23,7 +23,7 @@ class DynamicArray {
         void shrink();
 
     public:
-        DynamicArray(); // constructor
+        DynamicArray();  // constructor
         ~DynamicArray(); // destructor
  
         int getSize() const;
@@ -36,4 +36,4 @@ class DynamicArray {
 
 };
 
-#endif // DYNAMIC_ARRAY_H
+#endif 

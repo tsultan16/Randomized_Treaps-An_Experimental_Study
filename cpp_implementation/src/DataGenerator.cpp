@@ -37,7 +37,7 @@ int DataGenerator::generateRandInt(int a, int b) {
     return distribution(generator);
 }
 
-
+// generate a new element
 std::vector<int> DataGenerator::genElement() {
     std::vector<int> x(2);
     x[0] = id_next;
@@ -48,7 +48,6 @@ std::vector<int> DataGenerator::genElement() {
     data.push_back(x);
     return x;
 }
-
 
 // generate an insertion operation
 std::vector<int> DataGenerator::genInsertion() {
@@ -67,10 +66,8 @@ std::vector<int> DataGenerator::genDeletion() {
     deletion[0] = 2; // deletion operation
     // sample a uniform random integer id from [1,id_next-1]
     int idx = generateRandInt(1, id_next-1);
-    //std::cout << "deletion idx = " << idx << std::endl;
     // get the key associated with the element that had been generated with this id
     int key_del = data[idx-1][1];
-    //std::cout << "deleting key = " << key_del << std::endl;
     deletion[1] = key_del; 
     return deletion;
 }

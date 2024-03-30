@@ -14,12 +14,12 @@
 #include <vector>
 #include <random>
 
-// DataGenerator interface
+// DataGenerator Interface
 class DataGenerator {
     private:
         int id_next;
-        std::vector<std::vector<int>> data; // vector for storing all the generated data
-        std::mt19937 generator;  // pseudo-rng (Mersenne Twister)
+        std::vector<std::vector<int>> data;                   // vector for storing all the generated data
+        std::mt19937 generator;                               // pseudo-rng (Mersenne Twister)
         std::uniform_real_distribution<double> distribution;  // continuous uniform distribution
         static int SEED;
         static float ZERO;

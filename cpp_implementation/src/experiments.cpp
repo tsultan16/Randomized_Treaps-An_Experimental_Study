@@ -27,8 +27,7 @@ using namespace std;
 // number of sequence per experiment
 const int NUM_SEQUENCES = 5;
 
-
-// writes a vector to binary file
+// writes a vector containing an operation sequence to binary file
 bool saveVectorToFile(const std::vector<std::vector<int>>& vec, const std::string& filename) {
     std::ofstream outFile(filename, std::ios::binary);
     if (!outFile) {
@@ -51,8 +50,7 @@ bool saveVectorToFile(const std::vector<std::vector<int>>& vec, const std::strin
     return true;
 }
 
-
-// loads a vector from binary file
+// loads a vector containing an operation sequence from binary file
 std::vector<std::vector<int>> loadVectorFromFile(const std::string& filename) {
     std::ifstream inFile(filename, std::ios::binary);
     if (!inFile) {
@@ -80,6 +78,7 @@ std::vector<std::vector<int>> loadVectorFromFile(const std::string& filename) {
     return vec;
 }
 
+// generate and save the 5 operation sequences for the given experiment
 void genAndSaveOpSequences(int experiment) {
 
     cout << "Generating operation sequences for experiment " << experiment << "...\n";
@@ -198,7 +197,7 @@ void runExperiment(int experiment) {
     }
 }
 
-
+// main driver program
 int main(int argc, char** argv) {
 
     // get which experiment number to run from command line arguments
@@ -212,7 +211,7 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    // generate all 5 operation sequences for the experiment and and save them to file
+    // first, generate all 5 operation sequences for the experiment and and save them to file
     genAndSaveOpSequences(experiment);
 
     switch (experiment) {
@@ -230,7 +229,7 @@ int main(int argc, char** argv) {
             break;
     }
 
-    // run the experiment
+    // now, run the experiment
     runExperiment(experiment);
  
     return 0; // success!

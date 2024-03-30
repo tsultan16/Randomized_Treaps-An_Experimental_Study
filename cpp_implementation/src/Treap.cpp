@@ -27,7 +27,6 @@ Treap::~Treap() {
     destroyTreap(root);
 }
 
-
 // use BFS/postorder traversal to visit all nodes and deallocate the memory
 void Treap::destroyTreap(Node* node) {
     if (node != nullptr) {
@@ -42,15 +41,12 @@ float Treap::generateRand() {
     return distribution(generator);
 }
 
-
+// return the size of the treap
 int Treap::getSize() const {
     return size;
 }
 
-Node* Treap::getRoot() const {
-    return root;
-}
-
+// perform search operation
 Node* Treap::searchItem(int key_sch) const {
     // perform binary search starting from root (in case there are multiple nodes with this key, return the first one found)
     Node* current = root;
@@ -106,6 +102,7 @@ Node* Treap::bstInsert(Node* node, int id, int key, float priority) {
     }        
 }
 
+// perform insertion operation
 void Treap::insertItem(int id, int key) {
     // sample a uniform random priority from [0,1)
     float priority = generateRand();
@@ -123,7 +120,7 @@ void Treap::insertItem(int id, int key) {
     size++;
 }
 
-
+// perform deletion operation
 void Treap::deleteItem(int key_del) {
     // use binary search to find the node with given key (in case of multiple nodes with this key, we delete the first one found)
     Node* current = searchItem(key_del);
@@ -147,7 +144,6 @@ void Treap::deleteItem(int key_del) {
     //std::cout << "Key " << key_del << " not found." << std::endl;
 }
 
-
 // restores heap property violations after an insert
 void Treap::maintainHeapPropertyInsert(Node* node) {
     // check for heap property violation
@@ -160,9 +156,7 @@ void Treap::maintainHeapPropertyInsert(Node* node) {
             leftRotation(node);
         }
     }
-
 }
-
 
 // performs rotations to bring node down to a leaf position
 void Treap::rotateToLeaf(Node* node) {
@@ -183,7 +177,6 @@ void Treap::rotateToLeaf(Node* node) {
         }
     }     
 }
-
 
 // left rotation of a node
 void Treap::leftRotation(Node* x) {
@@ -265,8 +258,7 @@ void Treap::rightRotation(Node* x) {
     }
 }
 
-
-// find the height of the treap
+// compute the height of the treap
 int Treap::findTreeHeight() const {
     // perform level order traversal (i.e. BFS) to find the height of the tree
     int height = 0;
@@ -299,7 +291,7 @@ int Treap::findTreeHeight() const {
     }
 }
 
-
+// perform operations based on the input vector
 void Treap::performOperation(std::vector<int> op) {
     if (op[0] == 1) {
         insertItem(op[1], op[2]);
@@ -310,11 +302,11 @@ void Treap::performOperation(std::vector<int> op) {
     }
 }
 
-
 ///////////////////////////////////////////////////////////
 // Tree visualization using GraphViz, useful for debugging
 ///////////////////////////////////////////////////////////
 
+// create dot file representation of tree
 void Treap::exportToDot(Node* node, std::ofstream& dotFile) {
     // internal nodes with only one child assigned a null child
     if (node->left) {
@@ -332,6 +324,7 @@ void Treap::exportToDot(Node* node, std::ofstream& dotFile) {
     }
 }
 
+// export the tree to a dot file
 void Treap::exportTree(const std::string& filename) {
     std::ofstream dotFile(filename);
     dotFile << "digraph Tree {\n";

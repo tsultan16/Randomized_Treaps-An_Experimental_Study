@@ -98,7 +98,7 @@ void DynamicArray::shrink() {
     arr = arr_new;
 }
 
-// search for an item in the array
+// perform search operation
 int* DynamicArray:: searchItem(int key_sch) const {
     // scan the array from beginning to end to find the given key (in case there are multiple items with this key, return the first one found)
     for (int i =0; i < size; i++) {
@@ -110,6 +110,7 @@ int* DynamicArray:: searchItem(int key_sch) const {
     return nullptr;
 }
 
+// perform insertion operation
 void DynamicArray::insertItem(int id, int key) {
     // add the new item at the end of the array
     arr[size][0] = id;
@@ -121,6 +122,7 @@ void DynamicArray::insertItem(int id, int key) {
     }
 }
 
+// perform deletion operation
 void DynamicArray::deleteItem(int key_del) {
     // search for item to be deleted
     int* item = searchItem(key_del);
@@ -136,6 +138,7 @@ void DynamicArray::deleteItem(int key_del) {
     }
 }
 
+// perform operation based on the given input vector
 void DynamicArray::performOperation(std::vector<int> op) {
     if (op[0] == 1) {
         insertItem(op[1], op[2]);

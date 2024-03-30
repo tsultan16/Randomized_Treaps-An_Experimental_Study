@@ -31,7 +31,7 @@ class Treap {
     private:
         Node* root;
         int size;
-        std::mt19937 generator;  // pseudo-rng (Mersenne Twister)
+        std::mt19937 generator;                               // pseudo-rng (Mersenne Twister)
         std::uniform_real_distribution<double> distribution;  // continuous uniform distribution
         static int SEED;
         float generateRand();
@@ -44,10 +44,9 @@ class Treap {
         void exportToDot(Node* node, std::ofstream& dotFile);
 
     public:
-        Treap(); // constructor
+        Treap();  // constructor
         ~Treap(); // destructor
         int getSize() const;
-        Node* getRoot() const;
         void exportTree(const std::string& filename);
         int findTreeHeight() const;
 
